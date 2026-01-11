@@ -32,7 +32,7 @@ on:
         type: boolean
   push:
     branches:
-      - main
+      - production
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -47,9 +47,9 @@ env:
   AIO_BUILD: ${{ github.event.inputs.aio_build }}
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  GITOPS_REPO: chuolink/portainer_gitops
-  GITOPS_BRANCH: main
-  GITOPS_PATH: dev/plane/docker-compose.yml
+  GITOPS_REPO: skyconnect-inc/portainer-gitops
+  GITOPS_BRANCH: production
+  GITOPS_PATH: docs/pm/docker-compose.yml
 
 jobs:
   branch_build_setup:
@@ -645,7 +645,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       always() && 
-      github.ref == 'refs/heads/main' && 
+      github.ref == 'refs/heads/production' && 
       github.event_name == 'push' && 
       needs.detect_changes.outputs.any_changed == 'true' &&
       needs.detect_changes.result == 'success' &&
