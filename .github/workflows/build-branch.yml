@@ -694,32 +694,32 @@ jobs:
         # Only update tags for services that actually changed
         if [ "${{ needs.detect_changes.outputs.web_changed }}" = "true" ]; then
           echo "  Updating plane-frontend image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-frontend:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-frontend:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-frontend:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-frontend:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         if [ "${{ needs.detect_changes.outputs.space_changed }}" = "true" ]; then
           echo "  Updating plane-space image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-space:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-space:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-space:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-space:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         if [ "${{ needs.detect_changes.outputs.admin_changed }}" = "true" ]; then
           echo "  Updating plane-admin image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-admin:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-admin:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-admin:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-admin:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         if [ "${{ needs.detect_changes.outputs.live_changed }}" = "true" ]; then
           echo "  Updating plane-live image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-live:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-live:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-live:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-live:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         if [ "${{ needs.detect_changes.outputs.api_changed }}" = "true" ]; then
           echo "  Updating plane-backend image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-backend:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-backend:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-backend:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-backend:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         if [ "${{ needs.detect_changes.outputs.proxy_changed }}" = "true" ]; then
           echo "  Updating plane-proxy image..."
-          sed -i "s|ghcr.io/chuolink/plane/plane-proxy:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-proxy:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
+          sed -i "s|ghcr.io/skyconnect-inc/plane/plane-proxy:.*|${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/plane-proxy:${{ steps.sha.outputs.short_sha }}|g" ${{ env.GITOPS_PATH }}
         fi
         
         
