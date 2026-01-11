@@ -2,7 +2,7 @@ name: Branch Build CE
 
 on:
   workflow_dispatch:
-    
+
     inputs:
       build_type:
         description: "Type of build to run"
@@ -47,7 +47,7 @@ env:
   IS_PRERELEASE: ${{ github.event.inputs.isPrerelease }}
   AIO_BUILD: ${{ github.event.inputs.aio_build }}
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: skyconnect-inc/plane
   GITOPS_REPO: skyconnect-inc/portainer-gitops
   GITOPS_BRANCH: production
   GITOPS_PATH: docs/pm/docker-compose.yml
