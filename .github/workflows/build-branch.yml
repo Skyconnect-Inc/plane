@@ -2,7 +2,6 @@ name: Branch Build CE
 
 on:
   workflow_dispatch:
-
     inputs:
       build_type:
         description: "Type of build to run"
