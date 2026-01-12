@@ -796,6 +796,7 @@ jobs:
           sed -i 's/${APP_RELEASE:-stable}/${APP_RELEASE:-'${REL_VERSION}'}/g' deployments/cli/community/docker-compose.yml
           # sed -i 's/APP_RELEASE=stable/APP_RELEASE='${REL_VERSION}'/g' deployments/cli/community/variables.env
 
+          
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2.1.0
