@@ -217,7 +217,7 @@ export const AuthPasswordForm = observer(function AuthPasswordForm(props: Props)
                 "Go to workspace"
               )}
             </Button>
-            {isSMTPConfigured && (
+            {/* {isSMTPConfigured && (
               <Button
                 type="button"
                 onClick={redirectToUniqueCodeSignIn}
@@ -227,7 +227,7 @@ export const AuthPasswordForm = observer(function AuthPasswordForm(props: Props)
               >
                 Sign in with unique code
               </Button>
-            )}
+            )} */}
           </>
         ) : (
           <Button type="submit" variant="primary" className="w-full" size="xl" disabled={isButtonDisabled}>

@@ -71,9 +71,9 @@ export const AuthPasswordForm = observer(function AuthPasswordForm(props: Props)
     }
   }, [csrfPromise]);
 
-  const redirectToUniqueCodeSignIn = async () => {
-    handleAuthStep(EAuthSteps.UNIQUE_CODE);
-  };
+  // const redirectToUniqueCodeSignIn = async () => {
+  //   handleAuthStep(EAuthSteps.UNIQUE_CODE);
+  // };
 
   const passwordSupport =
     mode === EAuthModes.SIGN_IN ? (
@@ -282,7 +282,7 @@ export const AuthPasswordForm = observer(function AuthPasswordForm(props: Props)
                   t("common.go_to_workspace")
                 )}
               </Button>
-              {isSMTPConfigured && (
+              {/* {isSMTPConfigured && (
                 <Button
                   type="button"
                   data-ph-element={AUTH_TRACKER_ELEMENTS.SIGN_IN_WITH_UNIQUE_CODE}
@@ -293,7 +293,7 @@ export const AuthPasswordForm = observer(function AuthPasswordForm(props: Props)
                 >
                   {t("auth.common.sign_in_with_unique_code")}
                 </Button>
-              )}
+              )} */}
             </>
           ) : (
             <Button type="submit" variant="primary" className="w-full" size="xl" disabled={isButtonDisabled}>
