@@ -19,7 +19,7 @@ import { AuthService } from "@/services/auth.service";
 // local components
 import { CommonOnboardingHeader } from "../common";
 import { MarketingConsent } from "./consent";
-import { SetPasswordRoot } from "./set-password";
+// import { SetPasswordRoot } from "./set-password";
 
 type Props = {
   handleStepChange: (step: EOnboardingSteps, skipInvites?: boolean) => void;
@@ -232,12 +232,12 @@ export const ProfileSetupStep = observer(function ProfileSetupStep({ handleStepC
         </div>
 
         {/* setting up password for the first time */}
-        {!isPasswordAlreadySetup && (
+        {/* {!isPasswordAlreadySetup && (
           <SetPasswordRoot
             onPasswordChange={(password) => setValue("password", password)}
             onConfirmPasswordChange={(confirm_password) => setValue("confirm_password", confirm_password)}
           />
-        )}
+        )} */}
       </div>
       {/* Continue Button */}
       <Button variant="primary" type="submit" className="w-full" size="xl" disabled={isButtonDisabled}>
