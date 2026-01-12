@@ -4,7 +4,7 @@ import { Button } from "../button/button";
 import { Spinner } from "../spinners/circular-spinner";
 import { cn } from "../utils";
 import { AuthConfirmPasswordInput } from "./auth-confirm-password-input";
-import { AuthForgotPassword } from "./auth-forgot-password";
+// import { AuthForgotPassword } from "./auth-forgot-password";
 import { AuthInput } from "./auth-input";
 import { AuthPasswordInput } from "./auth-password-input";
 
@@ -175,11 +175,11 @@ export function AuthForm({
       )}
 
       {/* Forgot Password Link (Sign In Only) */}
-      {mode === "sign-in" && showForgotPassword && (
+      {/* {mode === "sign-in" && showForgotPassword && (
         <div className="flex justify-end">
           <AuthForgotPassword onForgotPassword={onForgotPassword} disabled={disabled} />
         </div>
-      )}
+      )} */}
 
       {/* Submit Button */}
       <div className="space-y-2.5">
