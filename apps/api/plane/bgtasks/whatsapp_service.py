@@ -112,7 +112,7 @@ class WhatsAppService:
                 "messaging_product": "whatsapp",
                 "type": "template",
                 "template": {
-                    "name": "plane_assigned_task",  # Template name - configure in WhatsApp Business Manager
+                    "name": "plane_assign_task",  # Template name - configure in WhatsApp Business Manager
                     "language": {
                         "code": "en"
                     },
