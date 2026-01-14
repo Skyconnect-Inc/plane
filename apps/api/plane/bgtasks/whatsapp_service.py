@@ -38,33 +38,30 @@ class WhatsAppService:
             if "to" not in payload:
                 payload["to"] = phone_number
             
-            logger.info(f"Sending WhatsApp message to: {payload['to']}")
-            
-            headers = {
-                "Authorization": f"Bearer {self.whatsapp_token}",
-                "Content-Type": "application/json",
-            }
-            
             response = requests.post(
                 self.whatsapp_url,
                 json=payload,
-                headers=headers,
+                headers={
+                    "Authorization": f"Bearer {self.whatsapp_token}",
+                    "Content-Type": "application/json",
+                },
                 timeout=30,
             )
             
             if response.status_code != 200:
                 logger.error(
-                    f"WhatsApp message send failed with status: {response.status_code}, "
-                    f"body: {response.text}"
+                    f"WhatsApp send failed - Status: {response.status_code}, "
+                    f"Response: {response.text}, "
+                    f"To: {payload['to']}"
                 )
                 return False
             
-            logger.info("WhatsApp message sent successfully")
+            logger.info(f"WhatsApp message sent successfully to {payload['to']}")
             return True
             
         except Exception as e:
+            logger.error(f"WhatsApp send error - To: {phone_number}, Error: {str(e)}")
             log_exception(e)
-            logger.error(f"WhatsApp message send failed: {str(e)}")
             return False
     
     def send_item_assigned_notification(
@@ -112,7 +109,7 @@ class WhatsAppService:
                 "messaging_product": "whatsapp",
                 "type": "template",
                 "template": {
-                    "name": "task_assignment",  # Template name - configure in WhatsApp Business Manager
+                    "name": "plane_assigned_task",  # Template name - configure in WhatsApp Business Manager
                     "language": {
                         "code": "en_US"
                     },

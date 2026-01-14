@@ -62,9 +62,11 @@ def stack_whatsapp_notification():
             )
 
     # Update the WhatsApp notification log
-    WhatsAppNotificationLog.objects.filter(pk__in=processed_notifications).update(
-        processed_at=timezone.now()
-    )
+    if processed_notifications:
+        WhatsAppNotificationLog.objects.filter(pk__in=processed_notifications).update(
+            processed_at=timezone.now()
+        )
+        logger.info(f"Processing {len(processed_notifications)} WhatsApp notifications")
 
 
 @shared_task
@@ -79,14 +81,14 @@ def send_whatsapp_notification(receiver_id, notification_id, whatsapp_notificati
             
             # Check if receiver has mobile number
             if not receiver.mobile_number:
-                logger.info(f"User {receiver_id} does not have mobile number, skipping notification")
+                logger.warning(f"Skipping WhatsApp notification - User {receiver_id} has no mobile number")
                 release_lock(lock_id=lock_id)
                 return
             
             # Get payload from notification data (already has all dynamic data filled in by service)
             payload = notification.data
             if not payload:
-                logger.error(f"WhatsApp notification {notification_id} has no payload data")
+                logger.error(f"Skipping WhatsApp notification {notification_id} - No payload data")
                 release_lock(lock_id=lock_id)
                 return
             
@@ -105,18 +107,15 @@ def send_whatsapp_notification(receiver_id, notification_id, whatsapp_notificati
                 WhatsAppNotificationLog.objects.filter(
                     pk__in=whatsapp_notification_ids
                 ).update(sent_at=timezone.now())
-                logger.info("WhatsApp notification sent successfully")
-            else:
-                logger.error("WhatsApp notification send failed")
             
             # release the lock
             release_lock(lock_id=lock_id)
             return
         else:
-            logger.info("Duplicate WhatsApp notification received, skipping")
+            logger.info(f"Duplicate WhatsApp notification {notification_id}, skipping")
             return
     except User.DoesNotExist:
-        logger.error(f"User {receiver_id} not found")
+        logger.error(f"User {receiver_id} not found for notification {notification_id}")
         release_lock(lock_id=lock_id)
         return
     except WhatsAppNotificationLog.DoesNotExist:
@@ -124,6 +123,7 @@ def send_whatsapp_notification(receiver_id, notification_id, whatsapp_notificati
         release_lock(lock_id=lock_id)
         return
     except Exception as e:
+        logger.error(f"WhatsApp notification error - Notification: {notification_id}, Error: {str(e)}")
         log_exception(e)
         release_lock(lock_id=lock_id)
         return
