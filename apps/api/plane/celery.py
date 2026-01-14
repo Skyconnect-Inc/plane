@@ -6,7 +6,7 @@ import logging
 from celery import Celery
 from pythonjsonlogger.jsonlogger import JsonFormatter
 from celery.signals import after_setup_logger, after_setup_task_logger
-from celery.schedules import crontab
+from celery.schedules import crontab, schedule
 
 # Module imports
 from plane.settings.redis import redis_instance
@@ -30,7 +30,7 @@ app.conf.beat_schedule = {
     },
     "check-every-45-seconds-to-send-whatsapp-notifications": {
         "task": "plane.bgtasks.whatsapp_notification_task.stack_whatsapp_notification",
-        "schedule": 45.0,  # Every 45 seconds
+        "schedule": schedule(run_every=45),  # Every 45 seconds
     },
     "run-every-6-hours-for-instance-trace": {
         "task": "plane.license.bgtasks.tracer.instance_traces",
