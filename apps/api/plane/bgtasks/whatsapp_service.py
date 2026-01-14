@@ -75,6 +75,7 @@ class WhatsAppService:
         task_name: str,
         task_priority: str,
         task_deadline: str,
+        issue_key: str,
     ) -> Optional[WhatsAppNotificationLog]:
         """
         Log WhatsApp notification when a task/item is assigned
@@ -90,6 +91,7 @@ class WhatsAppService:
             task_name: Name of the task
             task_priority: Priority of the task
             task_deadline: Deadline of the task
+            issue_key: External issue key (e.g. SAS-155) used in WhatsApp URL button
             
         Returns:
             WhatsAppNotificationLog instance if created, None otherwise
@@ -105,13 +107,14 @@ class WhatsAppService:
             # Create WhatsApp template payload matching the marketing template structure
             # Template parameters are passed separately, template is defined in WhatsApp Business Manager
             # Phone number will be set by the background task when sending
+            issue_url = f"https://board.skyconnect.dev/skyconnect/browse/{issue_key}/"
             payload = {
                 "messaging_product": "whatsapp",
                 "type": "template",
                 "template": {
                     "name": "plane_assigned_task",  # Template name - configure in WhatsApp Business Manager
                     "language": {
-                        "code": "en_US"
+                        "code": "en"
                     },
                     "components": [
                         {
@@ -123,6 +126,17 @@ class WhatsAppService:
                                 {"type": "text", "text": task_priority},
                                 {"type": "text", "text": task_deadline}
                             ]
+                        },
+                        {
+                            "type": "button",
+                            "sub_type": "url",
+                            "index": "0",
+                            "parameters": [
+                                {
+                                    "type": "text",
+                                    "text": issue_url,
+                                }
+                            ],
                         }
                     ]
                 }

@@ -412,6 +412,7 @@ def track_assignees(
             task_deadline = issue.target_date.strftime("%Y-%m-%d") if issue.target_date else "Not set"
             assignee_name = assignee.display_name or f"{assignee.first_name} {assignee.last_name}".strip() or assignee.email
             assignor_name = actor.display_name or f"{actor.first_name} {actor.last_name}".strip() or actor.email if actor else "System"
+            issue_key = f"{issue.project.identifier}-{issue.sequence_id}"
             
             # Send WhatsApp notification
             whatsapp_service = WhatsAppService()
@@ -425,6 +426,7 @@ def track_assignees(
                 task_name=task_name,
                 task_priority=task_priority,
                 task_deadline=task_deadline,
+                issue_key=issue_key,
             )
         except Exception as e:
             log_exception(e)
