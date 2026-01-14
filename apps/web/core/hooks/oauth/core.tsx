@@ -76,7 +76,7 @@ export const useCoreOAuthConfig = (oauthActionText: string): TOAuthConfigs => {
     },
     {
       id: "oidc",
-      text: `${oauthActionText} with OIDC`,
+      text: `${oauthActionText} with your skyconnect account`,
       icon: (
         <svg height={18} width={18} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path

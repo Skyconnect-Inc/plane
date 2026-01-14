@@ -16,7 +16,7 @@ import interVariableWoff2 from "@fontsource-variable/inter/files/inter-latin-wgh
 import "@fontsource/material-symbols-rounded";
 import "@fontsource/ibm-plex-mono";
 
-const APP_TITLE = "Plane | Simple, extensible, open-source project management tool.";
+const APP_TITLE = "Board - Skyconnect";
 const APP_DESCRIPTION =
   "Open-source project management tool to manage work items, sprints, and product roadmaps with peace of mind.";
 
