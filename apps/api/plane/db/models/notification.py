@@ -143,3 +143,34 @@ class EmailNotificationLog(BaseModel):
         verbose_name_plural = "Email Notification Logs"
         db_table = "email_notification_logs"
         ordering = ("-created_at",)
+
+
+class WhatsAppNotificationLog(BaseModel):
+    # receiver
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="whatsapp_notifications",
+    )
+    triggered_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="triggered_whatsapp",
+    )
+    # entity - can be issues, pages, etc.
+    entity_identifier = models.UUIDField(null=True)
+    entity_name = models.CharField(max_length=255)
+    # data - stores WhatsApp payload JSON
+    data = models.JSONField(null=True)
+    # sent at
+    processed_at = models.DateTimeField(null=True)
+    sent_at = models.DateTimeField(null=True)
+    entity = models.CharField(max_length=200)
+    old_value = models.CharField(max_length=300, blank=True, null=True)
+    new_value = models.CharField(max_length=300, blank=True, null=True)
+
+    class Meta:
+        verbose_name = "WhatsApp Notification Log"
+        verbose_name_plural = "WhatsApp Notification Logs"
+        db_table = "whatsapp_notification_logs"
+        ordering = ("-created_at",)

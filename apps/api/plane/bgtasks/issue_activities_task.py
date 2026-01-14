@@ -13,6 +13,7 @@ from django.utils import timezone
 # Module imports
 from plane.app.serializers import IssueActivitySerializer
 from plane.bgtasks.notification_task import notifications
+from plane.bgtasks.whatsapp_service import WhatsAppService
 from plane.db.models import (
     CommentReaction,
     Cycle,
@@ -399,6 +400,35 @@ def track_assignees(
                 updated_by_id=assignee.id,
             )
         )
+        
+        # Trigger WhatsApp notification for task assignment
+        try:
+            issue = Issue.objects.get(pk=issue_id)
+            actor = User.objects.get(pk=actor_id) if actor_id else None
+            
+            # Get task details
+            task_name = issue.name
+            task_priority = issue.priority.capitalize() if issue.priority else "None"
+            task_deadline = issue.target_date.strftime("%Y-%m-%d") if issue.target_date else "Not set"
+            assignee_name = assignee.display_name or f"{assignee.first_name} {assignee.last_name}".strip() or assignee.email
+            assignor_name = actor.display_name or f"{actor.first_name} {actor.last_name}".strip() or actor.email if actor else "System"
+            
+            # Send WhatsApp notification
+            whatsapp_service = WhatsAppService()
+            whatsapp_service.send_item_assigned_notification(
+                receiver_id=str(assignee.id),
+                triggered_by_id=str(actor_id) if actor_id else str(issue.created_by_id),
+                entity_identifier=str(issue_id),
+                entity_name="issue",
+                assignee_name=assignee_name,
+                assignor_name=assignor_name,
+                task_name=task_name,
+                task_priority=task_priority,
+                task_deadline=task_deadline,
+            )
+        except Exception as e:
+            log_exception(e)
+            # Continue even if WhatsApp notification fails
 
     # Create assignees subscribers to the issue and ignore if already
     IssueSubscriber.objects.bulk_create(bulk_subscribers, batch_size=10, ignore_conflicts=True)

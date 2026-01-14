@@ -28,6 +28,10 @@ app.conf.beat_schedule = {
         "task": "plane.bgtasks.email_notification_task.stack_email_notification",
         "schedule": crontab(minute="*/5"),  # Every 5 minutes
     },
+    "check-every-45-seconds-to-send-whatsapp-notifications": {
+        "task": "plane.bgtasks.whatsapp_notification_task.stack_whatsapp_notification",
+        "schedule": 45.0,  # Every 45 seconds
+    },
     "run-every-6-hours-for-instance-trace": {
         "task": "plane.license.bgtasks.tracer.instance_traces",
         "schedule": crontab(hour="*/6", minute=0),  # Every 6 hours

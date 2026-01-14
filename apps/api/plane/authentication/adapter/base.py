@@ -259,6 +259,11 @@ class Adapter:
         # Set display name
         user.display_name = display_name
 
+        # Set mobile number if provided
+        mobile_number = self.user_data.get("user", {}).get("mobile_number", "")
+        if mobile_number:
+            user.mobile_number = mobile_number
+
         # Download and upload avatar only if the avatar is different from the one in the storage
         avatar = self.user_data.get("user", {}).get("avatar", "")
         # Delete the old avatar if it exists
@@ -311,6 +316,11 @@ class Adapter:
             last_name = self.user_data.get("user", {}).get("last_name", "")
             user.first_name = first_name if first_name else ""
             user.last_name = last_name if last_name else ""
+            
+            # Set mobile number if provided
+            mobile_number = self.user_data.get("user", {}).get("mobile_number", "")
+            if mobile_number:
+                user.mobile_number = mobile_number
 
             user.save()
 
@@ -327,6 +337,12 @@ class Adapter:
 
             # Create profile
             Profile.objects.create(user=user)
+
+        # Set mobile number if provided (for both signup and login)
+        mobile_number = self.user_data.get("user", {}).get("mobile_number", "")
+        if mobile_number:
+            user.mobile_number = mobile_number
+            user.save()
 
         # Check if IDP sync is enabled and user is not signing up
         if self.check_sync_enabled() and not is_signup:

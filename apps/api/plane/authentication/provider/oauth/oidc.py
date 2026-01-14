@@ -134,6 +134,7 @@ class OIDCOAuthProvider(OauthAdapter):
         last_name = user_info_response.get("family_name") or user_info_response.get("last_name") or ""
         picture = user_info_response.get("picture") or user_info_response.get("avatar")
         provider_id = user_info_response.get("sub") or user_info_response.get("id")
+        mobile_number = user_info_response.get("mobile_number") or ""
 
         user_data = {
             "email": email,
@@ -143,6 +144,7 @@ class OIDCOAuthProvider(OauthAdapter):
                 "last_name": last_name,
                 "provider_id": provider_id,
                 "is_password_autoset": True,
+                "mobile_number": mobile_number,
             },
         }
         super().set_user_data(user_data)

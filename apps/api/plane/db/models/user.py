@@ -154,7 +154,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def save(self, *args, **kwargs):
         self.email = self.email.lower().strip()
-        self.mobile_number = self.mobile_number
+        if self.mobile_number:
+            self.mobile_number = self.mobile_number.strip()
 
         if self.token_updated_at is not None:
             self.token = uuid.uuid4().hex + uuid.uuid4().hex
