@@ -107,7 +107,7 @@ class WhatsAppService:
             # Create WhatsApp template payload matching the marketing template structure
             # Template parameters are passed separately, template is defined in WhatsApp Business Manager
             # Phone number will be set by the background task when sending
-            issue_url = f"https://board.skyconnect.dev/skyconnect/browse/{issue_key}/"
+            
             payload = {
                 "messaging_product": "whatsapp",
                 "type": "template",
@@ -134,7 +134,7 @@ class WhatsAppService:
                             "parameters": [
                                 {
                                     "type": "text",
-                                    "text": issue_url,
+                                    "text": issue_key,
                                 }
                             ],
                         }
